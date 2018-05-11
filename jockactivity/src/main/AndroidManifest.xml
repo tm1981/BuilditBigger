@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="il.co.techmobile.jockactivity">
+
+    <application>
+        <activity android:name=".JockActivity" />
+    </application>
+
+</manifest>

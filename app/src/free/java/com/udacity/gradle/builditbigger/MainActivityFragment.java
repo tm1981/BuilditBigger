@@ -2,6 +2,7 @@ package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.util.Log;
@@ -28,7 +29,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -70,10 +71,9 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onAdClosed() {
                 super.onAdClosed();
-                LoadActivity();
+                LoadActivity(); //load the jock activity after the ad is closed
 
             }
-
             @Override
             public void onAdFailedToLoad(int errorCode) {
                 LoadActivity();

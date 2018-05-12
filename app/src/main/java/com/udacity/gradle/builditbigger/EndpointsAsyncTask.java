@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.util.Pair;
+import android.util.Log;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -57,16 +58,18 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
         try {
             return myApiService.getJoke(name).execute().getData();
         } catch (IOException e) {
-            return e.getMessage();
+            Log.e("Jokes", e.getMessage(), e);
+            return null;
         }
     }
 
     @Override
     protected void onPostExecute(String result) {
-//        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-        mTaskCompleteListener.onTaskComplete(result);
-        Intent intent = new Intent(context, JockActivity.class);
-        intent.putExtra("jock",result);
-        context.startActivity(intent);
+        if (result != null) {
+            mTaskCompleteListener.onTaskComplete(result);
+            Intent intent = new Intent(context, JockActivity.class);
+            intent.putExtra("jock",result);
+            context.startActivity(intent);
+        }
     }
 }

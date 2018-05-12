@@ -3,6 +3,7 @@ package il.co.techmobile.jockactivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 public class JockActivity extends AppCompatActivity {
@@ -14,7 +15,10 @@ public class JockActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String jock = intent.getStringExtra("jock");
-        TextView textView = findViewById(R.id.jock);
-        textView.setText(jock);
+
+        if(!TextUtils.isEmpty(jock)) {
+            TextView textView = findViewById(R.id.jock);
+            textView.setText(jock);
+        }
     }
 }

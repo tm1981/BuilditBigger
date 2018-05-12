@@ -37,14 +37,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    public void tellJoke(View view) {
-//        new EndpointsAsyncTask(new EndpointsAsyncTask.TaskCompleteListener() {
-//            @Override
-//            public void onTaskComplete(String result) {
-//
-//            }
-//        }).execute(new Pair<Context, String>(this, "jock"));
-//    }
 
 
 }

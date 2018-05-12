@@ -1,7 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.util.Pair;
 import android.util.Log;
@@ -14,11 +13,8 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
-import il.co.techmobile.jockactivity.JockActivity;
-
 class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
-    private Context context;
     private final TaskCompleteListener mTaskCompleteListener;
 
 
@@ -27,7 +23,7 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
         void onTaskComplete(String result);
     }
 
-    public EndpointsAsyncTask(TaskCompleteListener listener) {
+    EndpointsAsyncTask(TaskCompleteListener listener) {
         mTaskCompleteListener = listener;
     }
 
@@ -52,7 +48,7 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
             myApiService = builder.build();
         }
 
-        context = params[0].first;
+        Context context = params[0].first;
         String name = params[0].second;
 
         try {
@@ -67,9 +63,6 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
     protected void onPostExecute(String result) {
         if (result != null) {
             mTaskCompleteListener.onTaskComplete(result);
-            Intent intent = new Intent(context, JockActivity.class);
-            intent.putExtra("jock",result);
-            context.startActivity(intent);
         }
     }
 }

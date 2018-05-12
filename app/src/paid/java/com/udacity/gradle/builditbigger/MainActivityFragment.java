@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import il.co.techmobile.jockactivity.JockActivity;
 
 
 /**
@@ -31,13 +34,13 @@ public class MainActivityFragment extends Fragment {
                 new EndpointsAsyncTask(new EndpointsAsyncTask.TaskCompleteListener() {
                     @Override
                     public void onTaskComplete(String result) {
-
+                        Intent intent = new Intent(getActivity(), JockActivity.class);
+                        intent.putExtra("jock",result);
+                        getActivity().startActivity(intent);
                     }
                 }).execute(new Pair<Context, String>(getActivity(), "jock"));
             }
         });
-
-
 
         return root;
     }

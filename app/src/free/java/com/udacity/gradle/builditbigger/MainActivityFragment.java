@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+
+import il.co.techmobile.jockactivity.JockActivity;
 
 
 /**
@@ -46,7 +49,7 @@ public class MainActivityFragment extends Fragment {
                 "ca-app-pub-3940256099942544~3347511713");
         if (getContext() != null) {
             mInterstitialAd = new InterstitialAd(getContext());
-            mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+            mInterstitialAd.setAdUnitId(getString(R.string.ad_unit_id));
 
         }
         AdRequest request = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
@@ -61,6 +64,7 @@ public class MainActivityFragment extends Fragment {
                     mInterstitialAd.show();
                 } else {
                     Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    LoadActivity();
                 }
 
 
@@ -74,10 +78,6 @@ public class MainActivityFragment extends Fragment {
                 LoadActivity(); //load the jock activity after the ad is closed
 
             }
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                LoadActivity();
-            }
         });
 
         return root;
@@ -87,6 +87,9 @@ public class MainActivityFragment extends Fragment {
         new EndpointsAsyncTask(new EndpointsAsyncTask.TaskCompleteListener() {
             @Override
             public void onTaskComplete(String result) {
+                Intent intent = new Intent(getActivity(), JockActivity.class);
+                intent.putExtra("jock",result);
+                getActivity().startActivity(intent);
 
             }
         }).execute(new Pair<Context, String>(getActivity(), "jock"));
